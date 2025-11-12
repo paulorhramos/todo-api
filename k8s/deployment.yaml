@@ -18,7 +18,7 @@ spec:
       - name: dockerhub-secret
       containers:
       - name: todo-api
-        image: prhramos/todo-api:6d50b08
+        image: prhramos/todo-api:8ea37e2
         ports:
         - containerPort: 5000
           name: http
