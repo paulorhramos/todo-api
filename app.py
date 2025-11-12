@@ -20,28 +20,6 @@ def get_db_connection():
     """Create database connection"""
     return psycopg2.connect(**DB_CONFIG)
 
-def init_db():
-    """Initialize database table"""
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        cur.execute('''
-            CREATE TABLE IF NOT EXISTS todos (
-                id SERIAL PRIMARY KEY,
-                title VARCHAR(255) NOT NULL,
-                description TEXT,
-                completed BOOLEAN DEFAULT FALSE,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        ''')
-        conn.commit()
-        cur.close()
-        conn.close()
-        print("✅ Database initialized successfully")
-    except Exception as e:
-        print(f"❌ Database initialization error: {e}")
-
 @app.route('/health', methods=['GET'])
 def health():
     """Health check endpoint"""
@@ -178,5 +156,4 @@ def index():
     })
 
 if __name__ == '__main__':
-    init_db()
     app.run(host='0.0.0.0', port=5000, debug=True)
